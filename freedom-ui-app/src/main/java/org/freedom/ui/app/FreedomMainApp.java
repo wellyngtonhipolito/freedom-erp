@@ -1,5 +1,7 @@
 package org.freedom.ui.app;
 
+import org.freedom.core.service.person.ClienteService;
+import org.freedom.ui.app.view.person.ClienteManagementPanel;
 import org.freedom.ui.components.card.ModernCard;
 import org.freedom.ui.components.table.ModernDataTable;
 import org.freedom.ui.components.table.ModernTableModel;
@@ -9,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -23,17 +26,21 @@ public class FreedomMainApp extends JFrame {
 
     public record TituloDemonstracao(String documento, String cliente, String vencimento, String valor, String status) {}
 
+    private final ClienteService clienteService;
+
     public FreedomMainApp() {
         super("Freedom ERP — Enterprise Management (Modernizado Java 25 & FlatLaf)");
+        this.clienteService = new ClienteService();
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(1100, 700));
+        setMinimumSize(new Dimension(1150, 750));
         setLocationRelativeTo(null);
 
         setLayout(new BorderLayout(16, 16));
 
         // 1. Barra de Topo com Alternador de Tema Dark/Light
         JPanel headerPanel = new JPanel(new BorderLayout());
-        JLabel lblHeader = new JLabel("  Dashboard Corporativo & Gestão Integrada");
+        JLabel lblHeader = new JLabel("  Freedom ERP — Enterprise Dashboard");
         lblHeader.putClientProperty("FlatLaf.styleClass", "h2");
 
         JButton btnToggleTheme = new JButton("🌓 Alternar Tema (Claro / Escuro)");
@@ -46,17 +53,25 @@ public class FreedomMainApp extends JFrame {
         headerPanel.add(headerActions, BorderLayout.EAST);
         add(headerPanel, BorderLayout.NORTH);
 
-        // 2. Painel Central (KPIs + ModernDataTable)
+        // 2. Abas Principais (Dashboard Executivo e Gestão de Clientes)
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("📊 Dashboard Executivo", createDashboardPanel());
+        tabbedPane.addTab("👥 Clientes (STD)", new ClienteManagementPanel(this, clienteService));
+
+        add(tabbedPane, BorderLayout.CENTER);
+    }
+
+    private JPanel createDashboardPanel() {
         JPanel centerPanel = new JPanel(new BorderLayout(16, 16));
 
-        // 2.1 Cards de KPIs
+        // Cards de KPIs
         JPanel kpiGrid = new JPanel(new GridLayout(1, 3, 16, 16));
         kpiGrid.add(new ModernCard("Faturamento Mensal (Out/2026)", "R$ 482.350,00", "▲ +14,2% vs mês anterior", true));
         kpiGrid.add(new ModernCard("Contas a Receber (Vencidas)", "R$ 18.240,00", "▼ -4,8% de inadimplência", true));
         kpiGrid.add(new ModernCard("CBS / IBS Apurado (Transição)", "R$ 4.823,50", "Transição EC 132/23 (1%)", true));
         centerPanel.add(kpiGrid, BorderLayout.NORTH);
 
-        // 2.2 Tabela de Títulos
+        // Tabela de Títulos Demonstrativa
         ModernTableModel<TituloDemonstracao> tableModel = new ModernTableModel<>(
             List.of("Nº Documento", "Cliente / Razão Social", "Data Vencimento", "Valor Nominal", "Status"),
             List.of(
@@ -77,11 +92,10 @@ public class FreedomMainApp extends JFrame {
         ));
 
         centerPanel.add(dataTable, BorderLayout.CENTER);
-        add(centerPanel, BorderLayout.CENTER);
+        return centerPanel;
     }
 
     public static void main(String[] args) {
-        // Inicializa o FlatLaf antes de instanciar componentes
         ThemeManager.setup();
 
         SwingUtilities.invokeLater(() -> {
@@ -90,4 +104,3 @@ public class FreedomMainApp extends JFrame {
         });
     }
 }
-
