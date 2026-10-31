@@ -55,3 +55,4 @@ class ProdutoServiceTest {
             .hasMessageContaining("NCM deve conter exatamente 8 dígitos");
     }
 }
+

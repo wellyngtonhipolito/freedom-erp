@@ -58,6 +58,7 @@ public class FreedomMainApp extends JFrame {
         tabbedPane.addTab("📊 Dashboard Executivo", createDashboardPanel());
         tabbedPane.addTab("👥 Clientes (Comercial)", new ClienteManagementPanel(this, clienteService));
         tabbedPane.addTab("📦 Produtos & Preços (Comercial)", new org.freedom.ui.app.view.product.ProdutoManagementPanel(this));
+        tabbedPane.addTab("🛒 Pedidos de Venda (Comercial)", new org.freedom.ui.app.view.sale.PedidoVendaManagementPanel(this));
         tabbedPane.addTab("💰 Contas a Receber (Financeiro)", new org.freedom.ui.app.view.finance.FinanceiroReceberPanel(this));
 
         add(tabbedPane, BorderLayout.CENTER);

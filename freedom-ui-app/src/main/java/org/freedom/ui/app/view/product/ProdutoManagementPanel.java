@@ -76,3 +76,4 @@ public class ProdutoManagementPanel extends JPanel {
             .thenAccept(produtos -> SwingUtilities.invokeLater(() -> dataTable.setData(produtos)));
     }
 }
+
