@@ -112,3 +112,4 @@ public class ProducaoManagementPanel extends JPanel {
             .thenAccept(ordens -> SwingUtilities.invokeLater(() -> dataTable.setData(ordens)));
     }
 }
+

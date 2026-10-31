@@ -51,3 +51,4 @@ CREATE TABLE IF NOT EXISTS producao.ordem_producao (
 
 CREATE INDEX IF NOT EXISTS idx_op_produto ON producao.ordem_producao(produto_id);
 CREATE INDEX IF NOT EXISTS idx_op_status ON producao.ordem_producao(status_op);
+

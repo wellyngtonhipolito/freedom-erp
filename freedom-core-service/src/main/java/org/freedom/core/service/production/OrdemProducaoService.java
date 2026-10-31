@@ -72,3 +72,4 @@ public class OrdemProducaoService {
         return CompletableFuture.supplyAsync(() -> repository.listarTodas(), runnable -> Thread.ofVirtual().start(runnable));
     }
 }
+
