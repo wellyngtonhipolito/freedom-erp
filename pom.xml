@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.freedom</groupId>
+    <artifactId>freedom-erp</artifactId>
+    <version>2026.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Freedom ERP (Modernizado)</name>
+    <description>Freedom ERP Modernizado com Java 25 LTS, PostgreSQL 16+, Jakarta Persistence 3.2 e FlatLaf UI</description>
+
+    <modules>
+        <module>freedom-bom</module>
+        <module>freedom-core-domain</module>
+        <module>freedom-core-service</module>
+        <module>freedom-infra-db</module>
+        <module>freedom-infra-api</module>
+        <module>freedom-ui-components</module>
+        <module>freedom-ui-app</module>
+    </modules>
+
+    <properties>
+        <java.version>25</java.version>
+        <maven.compiler.release>25</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Versões das Tecnologias Alvo -->
+        <flatlaf.version>3.5.4</flatlaf.version>
+        <miglayout.version>11.4.2</miglayout.version>
+        <hibernate.version>6.6.9.Final</hibernate.version>
+        <jakarta.persistence.version>3.2.0</jakarta.persistence.version>
+        <hikaricp.version>6.2.1</hikaricp.version>
+        <postgresql.version>42.7.5</postgresql.version>
+        <flyway.version>11.3.4</flyway.version>
+        <slf4j.version>2.0.17</slf4j.version>
+        <logback.version>1.5.17</logback.version>
+        <jackson.version>2.18.3</jackson.version>
+        <lombok.version>1.18.36</lombok.version>
+
+        <!-- Testes & Guardrails -->
+        <junit.jupiter.version>5.12.0</junit.jupiter.version>
+        <assertj.version>3.27.3</assertj.version>
+        <mockito.version>5.16.0</mockito.version>
+        <archunit.version>1.4.0</archunit.version>
+        <testcontainers.version>1.20.5</testcontainers.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Módulos Internos -->
+            <dependency>
+                <groupId>org.freedom</groupId>
+                <artifactId>freedom-core-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freedom</groupId>
+                <artifactId>freedom-core-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freedom</groupId>
+                <artifactId>freedom-infra-db</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freedom</groupId>
+                <artifactId>freedom-infra-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freedom</groupId>
+                <artifactId>freedom-ui-components</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Jakarta Persistence & Hibernate -->
+            <dependency>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <version>${jakarta.persistence.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+
+            <!-- Pool de Conexão e Banco PostgreSQL -->
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>${hikaricp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-postgresql</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+
+            <!-- UI: FlatLaf & MigLayout -->
+            <dependency>
+                <groupId>com.formdev</groupId>
+                <artifactId>flatlaf</artifactId>
+                <version>${flatlaf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.formdev</groupId>
+                <artifactId>flatlaf-extras</artifactId>
+                <version>${flatlaf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.miglayout</groupId>
+                <artifactId>miglayout-swing</artifactId>
+                <version>${miglayout.version}</version>
+            </dependency>
+
+            <!-- Utilitários e JSON -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <!-- Testes & Guardrails -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.jupiter.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.tngtech.archunit</groupId>
+                <artifactId>archunit-junit5</artifactId>
+                <version>${archunit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${testcontainers.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${testcontainers.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.13.0</version>
+                    <configuration>
+                        <release>25</release>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.5.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.4.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
+
