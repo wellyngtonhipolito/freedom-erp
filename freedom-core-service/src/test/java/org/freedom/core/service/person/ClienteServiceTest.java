@@ -65,3 +65,4 @@ class ClienteServiceTest {
         assertThat(resultado.get(0).getRazaoSocial()).isEqualTo("Cliente Teste");
     }
 }
+
