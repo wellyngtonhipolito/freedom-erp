@@ -73,3 +73,4 @@ CREATE TABLE IF NOT EXISTS ponto_de_venda.item_venda_pdv (
 );
 
 CREATE INDEX IF NOT EXISTS idx_item_venda_pdv ON ponto_de_venda.item_venda_pdv(venda_pdv_id);
+

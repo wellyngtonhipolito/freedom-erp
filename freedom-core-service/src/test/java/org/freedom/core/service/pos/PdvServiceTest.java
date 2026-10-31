@@ -72,3 +72,4 @@ class PdvServiceTest {
             .hasMessageContaining("Já existe uma sessão");
     }
 }
+

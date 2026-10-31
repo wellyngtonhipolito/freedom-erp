@@ -99,3 +99,4 @@ public class PdvService {
         return CompletableFuture.supplyAsync(() -> repository.listarUltimasVendas(caixaSessaoId), runnable -> Thread.ofVirtual().start(runnable));
     }
 }
+

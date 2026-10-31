@@ -106,3 +106,4 @@ public class CaixaSessao {
     public String getObservacao() { return observacao; }
     public void setObservacao(String observacao) { this.observacao = observacao; }
 }
+

@@ -118,3 +118,4 @@ public class VendaPdv {
     public String getStatusVenda() { return statusVenda; }
     public void setStatusVenda(String statusVenda) { this.statusVenda = statusVenda; }
 }
+
