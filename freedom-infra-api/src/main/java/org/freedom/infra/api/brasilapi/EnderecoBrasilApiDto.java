@@ -24,3 +24,4 @@ public record EnderecoBrasilApiDto(
             cep != null ? cep : "");
     }
 }
+

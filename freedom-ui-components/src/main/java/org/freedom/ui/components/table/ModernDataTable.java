@@ -109,3 +109,4 @@ public class ModernDataTable<T> extends JPanel {
         lblRecordCount.setText(String.format("Registros: %d de %d", table.getRowCount(), model.getRowCount()));
     }
 }
+

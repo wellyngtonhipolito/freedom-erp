@@ -90,3 +90,4 @@ public class FreedomMainApp extends JFrame {
         });
     }
 }
+

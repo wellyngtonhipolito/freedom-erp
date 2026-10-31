@@ -63,3 +63,4 @@ public class ModernTableModel<T> extends AbstractTableModel {
         return false;
     }
 }
+
