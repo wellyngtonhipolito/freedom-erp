@@ -159,3 +159,4 @@ public class ContaReceber {
     public Instant getAtualizadoEm() { return atualizadoEm; }
     public void setAtualizadoEm(Instant atualizadoEm) { this.atualizadoEm = atualizadoEm; }
 }
+

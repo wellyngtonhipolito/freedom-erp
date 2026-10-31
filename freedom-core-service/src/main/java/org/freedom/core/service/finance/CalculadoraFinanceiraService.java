@@ -52,3 +52,4 @@ public class CalculadoraFinanceiraService {
         return new EncargosAtraso(diasAtraso, multa, juros, total);
     }
 }
+

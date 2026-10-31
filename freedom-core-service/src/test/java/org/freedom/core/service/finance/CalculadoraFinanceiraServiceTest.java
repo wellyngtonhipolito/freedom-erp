@@ -57,3 +57,4 @@ class CalculadoraFinanceiraServiceTest {
             .isInstanceOf(IllegalArgumentException.class);
     }
 }
+

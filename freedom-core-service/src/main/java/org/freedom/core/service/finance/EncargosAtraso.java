@@ -14,3 +14,4 @@ public record EncargosAtraso(
     BigDecimal valorJuros,
     BigDecimal valorTotalAtualizado
 ) {}
+
