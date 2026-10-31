@@ -75,3 +75,4 @@ public class ClienteManagementPanel extends JPanel {
             .thenAccept(clientes -> SwingUtilities.invokeLater(() -> dataTable.setData(clientes)));
     }
 }
+
