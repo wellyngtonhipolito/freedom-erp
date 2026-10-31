@@ -101,3 +101,4 @@ public class BaixaContaReceber {
 
     public Instant getCriadoEm() { return criadoEm; }
 }
+

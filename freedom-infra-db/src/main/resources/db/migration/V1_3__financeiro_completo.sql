@@ -108,3 +108,4 @@ CREATE TABLE IF NOT EXISTS financeiro.baixa_conta_pagar (
 );
 
 CREATE INDEX IF NOT EXISTS idx_baixa_pag_titulo ON financeiro.baixa_conta_pagar(conta_pagar_id);
+
