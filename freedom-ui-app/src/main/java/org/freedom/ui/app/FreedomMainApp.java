@@ -53,12 +53,13 @@ public class FreedomMainApp extends JFrame {
         headerPanel.add(headerActions, BorderLayout.EAST);
         add(headerPanel, BorderLayout.NORTH);
 
-        // 2. Abas Principais (Dashboard, Comercial, Estoque, Produção e Financeiro)
+        // 2. Abas Principais (Dashboard, Comercial, Estoque, Produção, PDV e Financeiro)
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.addTab("📊 Dashboard Executivo", createDashboardPanel());
         tabbedPane.addTab("👥 Clientes (Comercial)", new ClienteManagementPanel(this, clienteService));
         tabbedPane.addTab("📦 Produtos & Preços (Comercial)", new org.freedom.ui.app.view.product.ProdutoManagementPanel(this));
         tabbedPane.addTab("🛒 Pedidos de Venda (Comercial)", new org.freedom.ui.app.view.sale.PedidoVendaManagementPanel(this));
+        tabbedPane.addTab("🏪 Frente de Caixa (PDV)", new org.freedom.ui.app.view.pos.PdvManagementPanel(this));
         tabbedPane.addTab("🏭 Estoque & Almoxarifado", new org.freedom.ui.app.view.stock.EstoqueManagementPanel(this));
         tabbedPane.addTab("⚙️ Produção & PCP", new org.freedom.ui.app.view.production.ProducaoManagementPanel(this));
         tabbedPane.addTab("💰 Contas a Receber (Financeiro)", new org.freedom.ui.app.view.finance.FinanceiroReceberPanel(this));
