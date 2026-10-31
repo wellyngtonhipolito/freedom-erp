@@ -50,3 +50,4 @@ public class EstoqueService {
         return CompletableFuture.supplyAsync(() -> repository.listarSaldosGerais(), runnable -> Thread.ofVirtual().start(runnable));
     }
 }
+

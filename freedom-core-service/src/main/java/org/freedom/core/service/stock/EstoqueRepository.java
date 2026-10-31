@@ -174,3 +174,4 @@ public class EstoqueRepository {
         return lista;
     }
 }
+

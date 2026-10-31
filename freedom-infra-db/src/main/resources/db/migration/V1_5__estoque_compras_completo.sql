@@ -65,3 +65,4 @@ CREATE TABLE IF NOT EXISTS estoque_compras.movimento_estoque (
 );
 
 CREATE INDEX IF NOT EXISTS idx_mov_estoque_prod_data ON estoque_compras.movimento_estoque(produto_id, data_movimento);
+

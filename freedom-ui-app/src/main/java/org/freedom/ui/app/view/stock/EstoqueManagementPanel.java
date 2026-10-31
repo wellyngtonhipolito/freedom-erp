@@ -73,3 +73,4 @@ public class EstoqueManagementPanel extends JPanel {
             .thenAccept(saldos -> SwingUtilities.invokeLater(() -> dataTable.setData(saldos)));
     }
 }
+

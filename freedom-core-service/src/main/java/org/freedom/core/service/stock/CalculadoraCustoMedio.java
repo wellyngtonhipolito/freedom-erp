@@ -39,3 +39,4 @@ public final class CalculadoraCustoMedio {
         return valorTotal.divide(novaQuantidadeTotal, 4, RoundingMode.HALF_UP);
     }
 }
+

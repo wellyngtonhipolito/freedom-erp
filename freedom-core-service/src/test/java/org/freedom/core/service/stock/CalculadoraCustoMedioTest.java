@@ -35,3 +35,4 @@ class CalculadoraCustoMedioTest {
         assertThat(novoCusto).isEqualByComparingTo("32.5000");
     }
 }
+
