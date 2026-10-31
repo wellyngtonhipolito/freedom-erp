@@ -110,3 +110,4 @@ public class PedidoVendaService {
         return CompletableFuture.supplyAsync(() -> repository.listarTodos(), runnable -> Thread.ofVirtual().start(runnable));
     }
 }
+

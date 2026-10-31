@@ -65,3 +65,4 @@ CREATE TABLE IF NOT EXISTS comercial.item_pedido_venda (
 );
 
 CREATE INDEX IF NOT EXISTS idx_item_pedido_venda ON comercial.item_pedido_venda(pedido_venda_id);
+

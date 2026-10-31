@@ -75,3 +75,4 @@ class PedidoVendaServiceTest {
             .hasMessageContaining("pelo menos um item");
     }
 }
+

@@ -107,3 +107,4 @@ public class PedidoVendaManagementPanel extends JPanel {
             .thenAccept(pedidos -> SwingUtilities.invokeLater(() -> dataTable.setData(pedidos)));
     }
 }
+
