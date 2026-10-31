@@ -1,15 +1,15 @@
 -- ==============================================================================
 -- V1_2__tabelas_financeiro_contas_receber_pagar.sql
--- Freedom ERP - Títulos a Receber, Títulos a Pagar e Transações
+-- Freedom ERP - Títulos a Receber e Pagar no Schema financeiro
 -- ==============================================================================
 
 -- ------------------------------------------------------------------------------
--- 1. FNC: Contas a Receber (Fnreceber modernizada)
+-- 1. FINANCEIRO: Contas a Receber
 -- ------------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS fnc.conta_receber (
+CREATE TABLE IF NOT EXISTS financeiro.conta_receber (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    filial_id BIGINT NOT NULL REFERENCES cfg.filial(id) ON DELETE RESTRICT,
-    cliente_id BIGINT NOT NULL REFERENCES std.pessoa(id) ON DELETE RESTRICT,
+    filial_id BIGINT NOT NULL REFERENCES configuracao.filial(id) ON DELETE RESTRICT,
+    cliente_id BIGINT NOT NULL REFERENCES comercial.pessoa(id) ON DELETE RESTRICT,
     numero_documento VARCHAR(30) NOT NULL,
     parcela INTEGER NOT NULL DEFAULT 1,
     total_parcelas INTEGER NOT NULL DEFAULT 1,
@@ -34,17 +34,17 @@ CREATE TABLE IF NOT EXISTS fnc.conta_receber (
     atualizado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_conta_receber_vencimento ON fnc.conta_receber(data_vencimento);
-CREATE INDEX IF NOT EXISTS idx_conta_receber_cliente ON fnc.conta_receber(cliente_id);
-CREATE INDEX IF NOT EXISTS idx_conta_receber_status ON fnc.conta_receber(status_titulo);
+CREATE INDEX IF NOT EXISTS idx_conta_receber_vencimento ON financeiro.conta_receber(data_vencimento);
+CREATE INDEX IF NOT EXISTS idx_conta_receber_cliente ON financeiro.conta_receber(cliente_id);
+CREATE INDEX IF NOT EXISTS idx_conta_receber_status ON financeiro.conta_receber(status_titulo);
 
 -- ------------------------------------------------------------------------------
--- 2. FNC: Contas a Pagar (Fnpagar modernizada)
+-- 2. FINANCEIRO: Contas a Pagar
 -- ------------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS fnc.conta_pagar (
+CREATE TABLE IF NOT EXISTS financeiro.conta_pagar (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    filial_id BIGINT NOT NULL REFERENCES cfg.filial(id) ON DELETE RESTRICT,
-    fornecedor_id BIGINT NOT NULL REFERENCES std.pessoa(id) ON DELETE RESTRICT,
+    filial_id BIGINT NOT NULL REFERENCES configuracao.filial(id) ON DELETE RESTRICT,
+    fornecedor_id BIGINT NOT NULL REFERENCES comercial.pessoa(id) ON DELETE RESTRICT,
     numero_documento VARCHAR(30) NOT NULL,
     parcela INTEGER NOT NULL DEFAULT 1,
     total_parcelas INTEGER NOT NULL DEFAULT 1,
@@ -66,6 +66,5 @@ CREATE TABLE IF NOT EXISTS fnc.conta_pagar (
     atualizado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_conta_pagar_vencimento ON fnc.conta_pagar(data_vencimento);
-CREATE INDEX IF NOT EXISTS idx_conta_pagar_fornecedor ON fnc.conta_pagar(fornecedor_id);
-
+CREATE INDEX IF NOT EXISTS idx_conta_pagar_vencimento ON financeiro.conta_pagar(data_vencimento);
+CREATE INDEX IF NOT EXISTS idx_conta_pagar_fornecedor ON financeiro.conta_pagar(fornecedor_id);

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Repositório desacoplado para operações na tabela std.pessoa.
+ * Repositório desacoplado para operações na tabela comercial.pessoa.
  * Utiliza o pool HikariCP e queries otimizadas com o índice pg_trgm.
  */
 public class PessoaRepository {
@@ -24,7 +24,7 @@ public class PessoaRepository {
 
     public Pessoa salvar(Pessoa pessoa) {
         String sql = """
-            INSERT INTO std.pessoa (
+            INSERT INTO comercial.pessoa (
                 filial_id, tipo_pessoa, razao_social, nome_fantasia, cpf_cnpj,
                 inscricao_estadual, inscricao_municipal, eh_cliente, eh_fornecedor,
                 eh_transportadora, eh_vendedor, cep, logradouro, numero, complemento,
@@ -77,7 +77,7 @@ public class PessoaRepository {
         String sql = """
             SELECT id, filial_id, tipo_pessoa, razao_social, nome_fantasia, cpf_cnpj,
                    eh_cliente, eh_fornecedor, email, celular_whatsapp, ativo
-            FROM std.pessoa
+            FROM comercial.pessoa
             WHERE razao_social ILIKE ? OR cpf_cnpj ILIKE ? OR nome_fantasia ILIKE ?
             ORDER BY razao_social
             LIMIT 50

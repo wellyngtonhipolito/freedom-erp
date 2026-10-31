@@ -13,10 +13,10 @@ import java.time.LocalDate;
 
 /**
  * Entidade que representa os Títulos a Receber (antiga Fnreceber).
- * Mapeada para a tabela fnc.conta_receber no PostgreSQL 16+.
+ * Mapeada para a tabela financeiro.conta_receber no PostgreSQL 16+.
  */
 @Entity
-@Table(name = "conta_receber", schema = "fnc")
+@Table(name = "conta_receber", schema = "financeiro")
 public class ContaReceber {
 
     @Id

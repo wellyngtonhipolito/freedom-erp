@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Repositório desacoplado para operações na tabela fnc.conta_receber.
+ * Repositório desacoplado para operações na tabela financeiro.conta_receber.
  */
 public class ContaReceberRepository {
 
@@ -22,7 +22,7 @@ public class ContaReceberRepository {
 
     public ContaReceber salvar(ContaReceber conta) {
         String sql = """
-            INSERT INTO fnc.conta_receber (
+            INSERT INTO financeiro.conta_receber (
                 filial_id, cliente_id, numero_documento, parcela, total_parcelas,
                 data_emissao, data_vencimento, valor_nominal, valor_desconto,
                 valor_juros, valor_multa, valor_pago, saldo_devedor, status_titulo,
@@ -69,7 +69,7 @@ public class ContaReceberRepository {
         String sql = """
             SELECT id, filial_id, cliente_id, numero_documento, parcela, total_parcelas,
                    data_emissao, data_vencimento, valor_nominal, saldo_devedor, status_titulo, tipo_cobranca
-            FROM fnc.conta_receber
+            FROM financeiro.conta_receber
             WHERE status_titulo = 'PENDENTE'
             ORDER BY data_vencimento ASC
             LIMIT 100

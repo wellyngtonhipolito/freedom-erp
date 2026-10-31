@@ -1,27 +1,27 @@
 -- ==============================================================================
 -- V1_0__criar_schemas_base.sql
--- Freedom ERP - Inicialização de Schemas de Negócio no PostgreSQL 16+
+-- Freedom ERP - Inicialização de Schemas Legíveis de Negócio no PostgreSQL 16+
+-- Nomes explícitos substituindo siglas crípticas legadas
 -- ==============================================================================
 
--- 1. Criação das Extensões Essenciais
+-- 1. Extensões Essenciais
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE EXTENSION IF NOT EXISTS "pg_trgm"; -- Suporte a buscas parciais de texto de alta performance (substitui CONTAINING do Firebird)
-CREATE EXTENSION IF NOT EXISTS "unaccent"; -- Suporte a buscas sem considerar acentuação
+CREATE EXTENSION IF NOT EXISTS "pg_trgm";
+CREATE EXTENSION IF NOT EXISTS "unaccent";
 
--- 2. Criação dos Schemas Departamentais (Desacoplamento de Domínios)
-CREATE SCHEMA IF NOT EXISTS cfg; -- Configurações Centrais, Segurança e Licenciamento
-CREATE SCHEMA IF NOT EXISTS std; -- Pessoas, Produtos, Tabela de Preços e Vendas
-CREATE SCHEMA IF NOT EXISTS fnc; -- Financeiro (Contas a Receber/Pagar, Bancos, PIX)
-CREATE SCHEMA IF NOT EXISTS gms; -- Gestão de Materiais, Estoque e Compras
-CREATE SCHEMA IF NOT EXISTS pcp; -- Planejamento e Controle de Produção
-CREATE SCHEMA IF NOT EXISTS lvf; -- Livros Fiscais e Regras Tributárias
-CREATE SCHEMA IF NOT EXISTS pdv; -- Ponto de Venda e Operações de Frente de Caixa
+-- 2. Schemas Departamentais Canônicos e Expressivos
+CREATE SCHEMA IF NOT EXISTS configuracao;    -- Antigo CFG: Configurações, Segurança e Parâmetros
+CREATE SCHEMA IF NOT EXISTS comercial;       -- Antigo STD: Pessoas, Clientes, Produtos e Pedidos
+CREATE SCHEMA IF NOT EXISTS financeiro;      -- Antigo FNC: Contas a Receber/Pagar, Tesouraria e PIX
+CREATE SCHEMA IF NOT EXISTS estoque_compras; -- Antigo GMS: Estoque, Lotes, Almoxarifado e Compras
+CREATE SCHEMA IF NOT EXISTS producao;        -- Antigo PCP: Ordens de Produção e Estrutura de Produtos
+CREATE SCHEMA IF NOT EXISTS fiscal;          -- Antigo LVF: Apuração Fiscal, Livros e Reforma 2026
+CREATE SCHEMA IF NOT EXISTS ponto_de_venda;  -- Antigo PDV: Frente de Caixa e NFC-e
 
-COMMENT ON SCHEMA cfg IS 'Configurações de sistema, usuários, filiais e parâmetros';
-COMMENT ON SCHEMA std IS 'Módulo Standard: cadastros centrais e pedidos de venda';
-COMMENT ON SCHEMA fnc IS 'Módulo Financeiro: tesouraria, títulos e conciliação';
-COMMENT ON SCHEMA gms IS 'Módulo de Materiais: almoxarifados, lotes e compras';
-COMMENT ON SCHEMA pcp IS 'Módulo de Produção: ficha técnica e ordens de produção';
-COMMENT ON SCHEMA lvf IS 'Módulo Fiscal: apuração, EFD e transição 2026';
-COMMENT ON SCHEMA pdv IS 'Módulo Frente de Caixa: vendas rápidas e NFC-e';
-
+COMMENT ON SCHEMA configuracao IS 'Configurações de sistema, usuários, empresas e filiais';
+COMMENT ON SCHEMA comercial IS 'Módulo Comercial: cadastros centrais, clientes, produtos e vendas';
+COMMENT ON SCHEMA financeiro IS 'Módulo Financeiro: tesouraria, contas a pagar/receber e conciliação';
+COMMENT ON SCHEMA estoque_compras IS 'Módulo de Estoque e Compras: suprimentos, almoxarifados e cotações';
+COMMENT ON SCHEMA producao IS 'Módulo de Produção: ficha técnica e ordens de produção industrial';
+COMMENT ON SCHEMA fiscal IS 'Módulo Fiscal: apuração, EFD e transição da Reforma Tributária 2026';
+COMMENT ON SCHEMA ponto_de_venda IS 'Módulo Frente de Caixa: vendas rápidas de balcão e NFC-e';

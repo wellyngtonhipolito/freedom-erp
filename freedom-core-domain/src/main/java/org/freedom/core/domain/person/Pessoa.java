@@ -11,10 +11,10 @@ import java.time.Instant;
 
 /**
  * Entidade unificada representando Pessoas (Clientes, Fornecedores, Transportadoras e Vendedores).
- * Mapeada para a tabela std.pessoa no PostgreSQL 16+.
+ * Mapeada para a tabela comercial.pessoa no PostgreSQL 16+.
  */
 @Entity
-@Table(name = "pessoa", schema = "std")
+@Table(name = "pessoa", schema = "comercial")
 public class Pessoa {
 
     @Id

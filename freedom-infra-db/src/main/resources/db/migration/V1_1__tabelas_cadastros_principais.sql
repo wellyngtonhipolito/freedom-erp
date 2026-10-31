@@ -1,13 +1,14 @@
 -- ==============================================================================
 -- V1_1__tabelas_cadastros_principais.sql
--- Freedom ERP - Tabelas Centrais de Usuários, Empresas, Filiais, Pessoas e Produtos
--- Substitui Firebird generators por IDENTITY columns e CHAR(1) por BOOLEAN
+-- Freedom ERP - Tabelas Centrais em Schemas Legíveis
+-- configuracao: empresa, filial
+-- comercial: pessoa, produto
 -- ==============================================================================
 
 -- ------------------------------------------------------------------------------
--- 1. CFG: Empresa e Filial
+-- 1. CONFIGURACAO: Empresa e Filial
 -- ------------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS cfg.empresa (
+CREATE TABLE IF NOT EXISTS configuracao.empresa (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     razao_social VARCHAR(120) NOT NULL,
     nome_fantasia VARCHAR(80),
@@ -18,26 +19,26 @@ CREATE TABLE IF NOT EXISTS cfg.empresa (
     atualizado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS cfg.filial (
+CREATE TABLE IF NOT EXISTS configuracao.filial (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    empresa_id BIGINT NOT NULL REFERENCES cfg.empresa(id) ON DELETE RESTRICT,
+    empresa_id BIGINT NOT NULL REFERENCES configuracao.empresa(id) ON DELETE RESTRICT,
     codigo_filial INTEGER NOT NULL,
     razao_social VARCHAR(120) NOT NULL,
     nome_fantasia VARCHAR(80),
     cnpj VARCHAR(18) NOT NULL,
     inscricao_estadual VARCHAR(30),
-    regime_tributario VARCHAR(30) NOT NULL DEFAULT 'SIMPLES_NACIONAL', -- SIMPLES_NACIONAL, LUCRO_PRESUMIDO, LUCRO_REAL
+    regime_tributario VARCHAR(30) NOT NULL DEFAULT 'SIMPLES_NACIONAL',
     ativo BOOLEAN NOT NULL DEFAULT TRUE,
     criado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT uq_filial_empresa_codigo UNIQUE (empresa_id, codigo_filial)
 );
 
 -- ------------------------------------------------------------------------------
--- 2. STD: Pessoa Unificada (Clientes, Fornecedores, Transportadoras e Vendedores)
+-- 2. COMERCIAL: Pessoa Unificada (Clientes, Fornecedores, Transportadoras e Vendedores)
 -- ------------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS std.pessoa (
+CREATE TABLE IF NOT EXISTS comercial.pessoa (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    filial_id BIGINT NOT NULL REFERENCES cfg.filial(id) ON DELETE RESTRICT,
+    filial_id BIGINT NOT NULL REFERENCES configuracao.filial(id) ON DELETE RESTRICT,
     tipo_pessoa VARCHAR(2) NOT NULL DEFAULT 'PJ', -- 'PF' ou 'PJ'
     razao_social VARCHAR(120) NOT NULL,
     nome_fantasia VARCHAR(80),
@@ -51,7 +52,7 @@ CREATE TABLE IF NOT EXISTS std.pessoa (
     eh_transportadora BOOLEAN NOT NULL DEFAULT FALSE,
     eh_vendedor BOOLEAN NOT NULL DEFAULT FALSE,
 
-    -- Endereço principal
+    -- Endereço
     cep VARCHAR(9),
     logradouro VARCHAR(100),
     numero VARCHAR(20),
@@ -71,15 +72,15 @@ CREATE TABLE IF NOT EXISTS std.pessoa (
     atualizado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_pessoa_cpf_cnpj ON std.pessoa(cpf_cnpj);
-CREATE INDEX IF NOT EXISTS idx_pessoa_razao_social_trgm ON std.pessoa USING gin (razao_social gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_pessoa_cpf_cnpj ON comercial.pessoa(cpf_cnpj);
+CREATE INDEX IF NOT EXISTS idx_pessoa_razao_social_trgm ON comercial.pessoa USING gin (razao_social gin_trgm_ops);
 
 -- ------------------------------------------------------------------------------
--- 3. STD: Produtos e Itens Fiscais
+-- 3. COMERCIAL: Produtos e Itens Fiscais
 -- ------------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS std.produto (
+CREATE TABLE IF NOT EXISTS comercial.produto (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    filial_id BIGINT NOT NULL REFERENCES cfg.filial(id) ON DELETE RESTRICT,
+    filial_id BIGINT NOT NULL REFERENCES configuracao.filial(id) ON DELETE RESTRICT,
     codigo_referencia VARCHAR(30),
     codigo_barras_ean VARCHAR(14),
     descricao VARCHAR(120) NOT NULL,
@@ -93,10 +94,10 @@ CREATE TABLE IF NOT EXISTS std.produto (
     -- Classificações Fiscais Obrigatórias
     ncm VARCHAR(8) NOT NULL,
     cest VARCHAR(7),
-    origem_mercadoria INTEGER NOT NULL DEFAULT 0, -- 0: Nacional, 1: Importação Direta, etc.
-    tipo_item_sped VARCHAR(2) NOT NULL DEFAULT '00', -- 00: Mercadoria para Revenda, 01: Matéria-Prima, etc.
+    origem_mercadoria INTEGER NOT NULL DEFAULT 0,
+    tipo_item_sped VARCHAR(2) NOT NULL DEFAULT '00',
     
-    -- Transição Tributária 2026 (EC 132/23)
+    -- Transição Reforma Tributária 2026 (EC 132/23)
     sujeito_imposto_seletivo BOOLEAN NOT NULL DEFAULT FALSE,
 
     ativo BOOLEAN NOT NULL DEFAULT TRUE,
@@ -104,6 +105,5 @@ CREATE TABLE IF NOT EXISTS std.produto (
     atualizado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_produto_ean ON std.produto(codigo_barras_ean);
-CREATE INDEX IF NOT EXISTS idx_produto_descricao_trgm ON std.produto USING gin (descricao gin_trgm_ops);
-
+CREATE INDEX IF NOT EXISTS idx_produto_ean ON comercial.produto(codigo_barras_ean);
+CREATE INDEX IF NOT EXISTS idx_produto_descricao_trgm ON comercial.produto USING gin (descricao gin_trgm_ops);
