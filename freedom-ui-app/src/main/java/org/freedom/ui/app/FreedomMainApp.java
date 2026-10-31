@@ -56,7 +56,8 @@ public class FreedomMainApp extends JFrame {
         // 2. Abas Principais (Dashboard, Gestão Comercial e Gestão Financeira)
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.addTab("📊 Dashboard Executivo", createDashboardPanel());
-        tabbedPane.addTab("👥 Gestão Comercial & Clientes", new ClienteManagementPanel(this, clienteService));
+        tabbedPane.addTab("👥 Clientes (Comercial)", new ClienteManagementPanel(this, clienteService));
+        tabbedPane.addTab("📦 Produtos & Preços (Comercial)", new org.freedom.ui.app.view.product.ProdutoManagementPanel(this));
         tabbedPane.addTab("💰 Contas a Receber (Financeiro)", new org.freedom.ui.app.view.finance.FinanceiroReceberPanel(this));
 
         add(tabbedPane, BorderLayout.CENTER);
